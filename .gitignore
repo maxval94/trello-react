@@ -1,0 +1,9 @@
+# Editors
+.idea/
+.DS_Store
+.vscode/
+.sublime-*
+
+# node_modules
+**/npm-debug.log
+**/node_modules/
