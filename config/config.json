@@ -1,0 +1,29 @@
+{
+  "port": 3000,
+  "mongoose": {
+    "uri": "mongodb://localhost:27017/trello",
+    "options": {
+      "keepAlive": 1,
+      "useNewUrlParser": true
+    }
+  },
+  "session": {
+    "secret": "secret",
+    "key": "sid",
+    "cookie": {
+      "path": "/",
+      "httpOnly": true,
+      "maxAge": null
+    }
+  },
+  "facebookAuth": {
+    "clientID": "",
+    "clientSecret": "",
+    "callbackURL": ""
+  },
+  "googleAuth": {
+    "clientID": "",
+    "clientSecret": "",
+    "callbackURL": ""
+  }
+}

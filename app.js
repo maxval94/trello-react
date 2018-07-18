@@ -1,9 +1,16 @@
 const createError = require("http-errors");
 const express = require("express");
+const expressValidator = require("express-validator");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const passport = require("passport");
 
+const config = require("./config");
+const mongoose = require("./db");
+const { auth, apiSecure } = require("./routes/api/modules/auth");
 const indexRouter = require("./routes/index");
 const apiRouter = require("./routes/api");
 
@@ -15,13 +22,31 @@ app.set("view engine", "ejs");
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(expressValidator());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(
+  session({
+    secret: config.get("session:secret"),
+    key: config.get("session:key"),
+    cookie: config.get("session:cookie"),
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    saveUninitialized: true,
+    resave: true
+  })
+);
 app.use(express.static(path.join(__dirname, "public")));
+
+// Configure the strategy for use by Passport.
+auth(passport);
+
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/", indexRouter);
 
-app.use("/api", apiRouter);
+app.use("/api", apiSecure, apiRouter);
 
 app.all("*", (req, res) => {
   res.json({ all: true });
