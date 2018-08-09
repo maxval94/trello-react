@@ -1,5 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
+import Config from "../config/config.json";
+import App from "./app";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const client = new ApolloClient({
+  uri: Config.apolloClient.uri
+});
+
+ReactDOM.render(
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>,
+  document.getElementById("root")
+);

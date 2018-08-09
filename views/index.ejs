@@ -15,27 +15,13 @@
 </head>
 
 <body>
+  <div id="root"></div>
 
   <% if(user) { %>
-    User is Login
+    <script src="/javascripts/main.js"></script>
     <% } else { %>
-      <form action="/api/user" method="post">
-        <div>
-          <label>Username:</label>
-          <input type="text" name="username" />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input type="password" name="password" />
-        </div>
-        <div>
-          <input type="submit" value="Log In" />
-        </div>
-      </form>
+      <script src="/javascripts/login.js"></script>
       <% } %>
-
-        <div id="root"></div>
-        <script src="/javascripts/main.js"></script>
 </body>
 
 </html>

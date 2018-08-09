@@ -5,10 +5,13 @@ module.exports = (env, argv) => {
   const IS_DEVELOPMENT = argv.mode === "development";
 
   return {
-    entry: "./src/index.js",
+    entry: {
+      main: "./src/index.js",
+      login: "./src/login.js"
+    },
     output: {
       path: path.resolve(__dirname, "public"),
-      filename: "javascripts/main.js"
+      filename: "javascripts/[name].js"
     },
     module: {
       rules: [

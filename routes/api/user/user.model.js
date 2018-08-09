@@ -1,43 +1,36 @@
-const crypto = require("crypto");
+const validator = require("validator");
+const mongodbErrorHandler = require("mongoose-mongodb-errors");
+const passportLocalMongoose = require("passport-local-mongoose");
 const mongoose = require("../../../db");
 
 const schema = {
-  local: {
-    firstName: String,
-    lastName: String,
-    email: String,
-    hashedPassword: String,
-    salt: String
+  email: {
+    type: String,
+    unique: true,
+    lowercase: true,
+    trim: true,
+    validate: {
+      isAsync: true,
+      validator: (v, cb) =>
+        cb(validator.isEmail(v), `${v} is not a valid email address`)
+    },
+    required: "Please Supply an email address"
   },
   created: {
     type: Date,
     default: Date.now
   }
 };
-const userSchema = new mongoose.Schema(schema, { timestamps: true });
+const userSchema = new mongoose.Schema(schema);
 
-userSchema.methods = {
-  encryptPassword(password) {
-    return crypto
-      .createHmac("sha1", this.local.salt)
-      .update(password)
-      .digest("hex");
-  },
-  checkPassword(password) {
-    return this.encryptPassword(password) === this.local.hashedPassword;
+userSchema.plugin(passportLocalMongoose, {
+  usernameField: "email",
+  errorMessages: {
+    UserExistsError: "Email Already Exists"
   }
-};
+});
 
-userSchema
-  .virtual("local.password")
-  .set(function(password) {
-    this._plainPassword = password;
-    this.local.salt = `${Math.random()}`;
-    this.local.hashedPassword = this.encryptPassword(password);
-  })
-  .get(function() {
-    return this._plainPassword;
-  });
+userSchema.plugin(mongodbErrorHandler);
 
 const User = mongoose.model("user", userSchema);
 

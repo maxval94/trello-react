@@ -25,5 +25,8 @@
     "clientID": "",
     "clientSecret": "",
     "callbackURL": ""
+  },
+  "apolloClient": {
+    "uri": "http://localhost:3000/graphql"
   }
 }

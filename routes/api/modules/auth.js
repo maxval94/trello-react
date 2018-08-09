@@ -1,16 +1,17 @@
 const User = require("../user/user.model").User;
 
-const auth = passport => (req, res, next) => {
-  passport.serializeUser((user, done) => {
-    done(null, user.id);
-  });
-  passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => {
-      done(err, user);
-    });
+const auth = passport => {
+  passport.use(User.createStrategy());
+
+  passport.serializeUser((user, next) => {
+    next(null, user.id);
   });
 
-  next();
+  passport.deserializeUser((id, next) => {
+    User.findById(id, (err, user) => {
+      next(err, user);
+    });
+  });
 };
 
 const apiSecure = (req, res, next) => {
