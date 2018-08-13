@@ -2,6 +2,12 @@ const mongoose = require("../../../db");
 
 const schema = {
   name: String,
+  lists: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "list"
+    }
+  ],
   users: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -21,6 +21,7 @@
     "react-dom": "^16.4.1"
   },
   "devDependencies": {
+    "apollo-link-http": "^1.5.4",
     "apollo-server-express": "^2.0.0",
     "autoprefixer": "^8.6.5",
     "babel-cli": "^6.26.0",
@@ -50,6 +51,7 @@
     "postcss-import": "^11.1.0",
     "postcss-loader": "^2.1.5",
     "react-apollo": "^2.1.9",
+    "react-beautiful-dnd": "^9.0.0",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
     "validator": "^10.5.0",

@@ -19,8 +19,6 @@ const createUser = (root, { input }, { login }) => {
 const login = (root, { input }, { login, redirect }) => {
   const { email, password } = input;
 
-  console.log("user.resolvers redirect", redirect);
-
   return new Promise((resolve, reject) => {
     return User.authenticate()(email, password, (err, user) => {
       if (user) {

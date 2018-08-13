@@ -1,0 +1,14 @@
+// Navigation
+.nav {
+  display: flex;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 40px;
+  background-color: #ccc;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+
+  &-user {
+  }
+}

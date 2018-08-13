@@ -10,9 +10,9 @@ const passport = require("passport");
 
 const config = require("./config");
 const mongoose = require("./db");
-const { auth, apiSecure } = require("./routes/api/modules/auth");
+const { auth } = require("./routes/api/modules/auth");
 const indexRouter = require("./routes/index");
-const { restRouter, graphQLRouter } = require("./routes/api");
+const graphQLRouter = require("./routes/api");
 
 const app = express();
 
@@ -45,8 +45,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/", indexRouter);
-
-app.use("/api", apiSecure, restRouter);
 
 // Apply GraphQL middleware
 graphQLRouter.applyMiddleware({ app });

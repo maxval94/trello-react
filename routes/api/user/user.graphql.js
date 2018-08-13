@@ -7,7 +7,7 @@ const schema = gql`
     created: String!
   }
 
-  input UpdatedUser {
+  input UpdateUser {
     email: String!
   }
 

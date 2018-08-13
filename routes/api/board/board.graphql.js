@@ -6,9 +6,10 @@ const schema = gql`
     name: String!
     users: [User]!
     usersName: [String]
+    lists: [List!]
   }
 
-  input UpdatedBoard {
+  input UpdateBoard {
     id: ID!
     name: String!
   }

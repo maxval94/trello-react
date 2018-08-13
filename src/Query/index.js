@@ -8,4 +8,12 @@ const logout = gql`
   }
 `;
 
-export { logout };
+const getUser = gql`
+  {
+    getUser {
+      email
+    }
+  }
+`;
+
+export { logout, getUser };
