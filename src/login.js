@@ -29,6 +29,22 @@ class Login extends React.Component {
     });
   };
 
+  handleLogin = () => {
+    if (this.state.type !== "login") {
+      this.setState({
+        type: "login"
+      });
+    }
+  };
+
+  handleSignUp = () => {
+    if (this.state.type !== "signUp") {
+      this.setState({
+        type: "signUp"
+      });
+    }
+  };
+
   renderError(error) {
     return <div>{error}</div>;
   }
@@ -68,7 +84,13 @@ class Login extends React.Component {
                 this.handleChange(e.target.value, "password");
               }}
             />
-            <button type="submit">Login or Sign Up</button>
+            <button type="submit" onClick={this.handleLogin}>
+              Login
+            </button>
+            or
+            <button type="submit" onClick={this.handleSignUp}>
+              Sign Up
+            </button>
           </form>
         )}
       </Mutation>

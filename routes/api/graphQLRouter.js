@@ -1,7 +1,7 @@
 const merge = require("lodash.merge");
 const { cardType, cardResolvers } = require("./card");
 const { listType, listResolvers } = require("./list");
-const { userType, userResolvers } = require("./user").graphQLRouter;
+const { userType, userResolvers } = require("./user");
 const { boardType, boardResolvers } = require("./board");
 const { ApolloServer, gql } = require("apollo-server-express");
 

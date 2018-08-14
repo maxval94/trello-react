@@ -1,10 +1,7 @@
 const merge = require("lodash.merge");
 
 const getCard = (_, __, { card }) => {
-  return {
-    id: "sadasd",
-    title: "Card 1"
-  };
+  return card;
 };
 
 const updateCard = (_, { input }, { card }) => {

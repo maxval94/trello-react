@@ -12,6 +12,20 @@ const getUser = gql`
   {
     getUser {
       email
+      boards {
+        name
+        users {
+          email
+        }
+        lists {
+          title
+          cards {
+            title
+            description
+            label
+          }
+        }
+      }
     }
   }
 `;

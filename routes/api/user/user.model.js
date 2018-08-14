@@ -19,7 +19,13 @@ const schema = {
   created: {
     type: Date,
     default: Date.now
-  }
+  },
+  boards: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "board"
+    }
+  ]
 };
 const userSchema = new mongoose.Schema(schema);
 
@@ -32,7 +38,7 @@ userSchema.plugin(passportLocalMongoose, {
 
 userSchema.plugin(mongodbErrorHandler);
 
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model("user", userSchema, "users");
 
 module.exports = {
   schema,

@@ -9,7 +9,7 @@ const cardSchema = new mongoose.Schema(schema, { timestamps: true });
 
 cardSchema.methods = {};
 
-const Card = mongoose.model("card", cardSchema);
+const Card = mongoose.model("card", cardSchema, "cards");
 
 module.exports = {
   schema,

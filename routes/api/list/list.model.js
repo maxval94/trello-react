@@ -13,7 +13,7 @@ const listSchema = new mongoose.Schema(schema, { timestamps: true });
 
 listSchema.methods = {};
 
-const List = mongoose.model("list", listSchema);
+const List = mongoose.model("list", listSchema, "lists");
 
 module.exports = {
   schema,

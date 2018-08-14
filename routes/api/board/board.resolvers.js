@@ -1,10 +1,8 @@
 const merge = require("lodash.merge");
+const Board = require("./board.model").Board;
 
-const getBoard = (_, __, { board }) => {
-  return {
-    id: "sadasd",
-    name: "board 1"
-  };
+const getBoard = (_, { input }, { board }) => {
+  return board;
 };
 
 const updateBoard = (_, { input }, { board }) => {
@@ -17,11 +15,19 @@ const userResolvers = {
     getBoard
   },
   Board: {
-    // get user who use that board
-    usersName: user => {
-      // Query db and search all users who user that board
+    users: async board => {
+      const userData = await Board.findById(board._id)
+        .populate("users")
+        .exec();
 
-      return ["User 1", "User 2"];
+      return userData.users;
+    },
+    lists: async board => {
+      const listData = await Board.findById(board._id)
+        .populate("lists")
+        .exec();
+
+      return listData.lists;
     }
   },
   Mutation: {

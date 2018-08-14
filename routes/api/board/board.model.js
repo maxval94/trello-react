@@ -19,7 +19,7 @@ const boardSchema = new mongoose.Schema(schema, { timestamps: true });
 
 boardSchema.methods = {};
 
-const Board = mongoose.model("board", boardSchema);
+const Board = mongoose.model("board", boardSchema, "boards");
 
 module.exports = {
   schema,

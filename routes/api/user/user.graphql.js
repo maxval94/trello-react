@@ -5,6 +5,7 @@ const schema = gql`
     id: ID!
     email: String!
     created: String!
+    boards: [Board]!
   }
 
   input UpdateUser {

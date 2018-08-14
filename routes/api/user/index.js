@@ -1,5 +1,4 @@
-const graphQLRouter = require("./user.graphQLRouter");
-
 module.exports = {
-  graphQLRouter
+  userType: require("./user.graphql"),
+  userResolvers: require("./user.resolvers")
 };

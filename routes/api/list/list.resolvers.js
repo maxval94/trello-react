@@ -1,11 +1,8 @@
 const merge = require("lodash.merge");
+const List = require("./list.model").List;
 
 const getList = (_, __, { list }) => {
-  return {
-    id: "sadasd",
-    title: "List 1",
-    cards: []
-  };
+  return list;
 };
 
 const updateList = (_, { input }, { list }) => {
@@ -18,11 +15,12 @@ const userResolvers = {
     getList
   },
   List: {
-    // get user who use that board
-    cards: list => {
-      // Query db and search all users who user that board
+    cards: async list => {
+      const cardData = await List.findById(list._id)
+        .populate("cards")
+        .exec();
 
-      return ["User 1", "User 2"];
+      return cardData.cards;
     }
   },
   Mutation: {

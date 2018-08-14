@@ -67,6 +67,6 @@ module.exports = (env, argv) => {
       })
     ],
     watch: IS_DEVELOPMENT,
-    devtool: IS_DEVELOPMENT && "cheap-eval-source-map"
+    devtool: IS_DEVELOPMENT && "source-map"
   };
 };
