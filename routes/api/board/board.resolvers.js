@@ -1,8 +1,8 @@
 const merge = require("lodash.merge");
 const Board = require("./board.model").Board;
 
-const getBoard = (_, { input }, { board }) => {
-  return board;
+const getBoard = async (_, { id }) => {
+  return await Board.findById(id);
 };
 
 const updateBoard = (_, { input }, { board }) => {

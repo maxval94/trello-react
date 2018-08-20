@@ -17,7 +17,7 @@ const baseSchema = gql`
     getUser: User!
 
     # Board
-    getBoard: Board!
+    getBoard(id: String!): Board!
 
     # Logout
     logout: Logout!

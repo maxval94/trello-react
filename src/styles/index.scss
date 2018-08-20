@@ -1,10 +1,17 @@
 // Reset 
 @import "reset";
 
+// Variables
+@import "variables";
+
 // Nav
 @import "nav";
 
-body {
-  color: #000;
-  font-size: 24px;
-};
+// Container
+@import "container";
+
+// Boards
+@import "boards";
+
+// Pages
+@import "page"

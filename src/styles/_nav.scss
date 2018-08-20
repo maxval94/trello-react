@@ -3,12 +3,17 @@
   display: flex;
   padding-left: 10px;
   padding-right: 10px;
-  height: 40px;
+  height: $nav-height;
   background-color: #ccc;
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
-
-  &-user {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  
+  &-user span {
+    padding-right: 10px;
   }
 }
