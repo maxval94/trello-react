@@ -1,0 +1,10 @@
+// Column Dnd
+.column {
+  padding: 15px;
+  border: 1px solid #ccc;
+
+  &__title {
+    font-size: $column-title;
+    margin-bottom: 0.5em;
+  }
+}

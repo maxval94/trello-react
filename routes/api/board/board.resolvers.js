@@ -1,5 +1,7 @@
 const merge = require("lodash.merge");
 const Board = require("./board.model").Board;
+const User = require("../user/user.model").User;
+const Dashboard = require("../dashboard/dashboard.model").Dashboard;
 
 const getBoard = async (_, { id }) => {
   return await Board.findById(id);
@@ -16,11 +18,12 @@ const userResolvers = {
   },
   Board: {
     users: async board => {
-      const userData = await Board.findById(board._id)
-        .populate("users")
-        .exec();
+      const Boards = await Dashboard.find({ boards: board._id });
+      const usersData = await Promise.all(
+        Boards.map(({ users }) => User.findById(users))
+      );
 
-      return userData.users;
+      return usersData;
     },
     lists: async board => {
       const listData = await Board.findById(board._id)

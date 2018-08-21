@@ -3,9 +3,13 @@ const User = require("./user.model").User;
 const Board = require("../board/board.model").Board;
 const List = require("../list/list.model").List;
 const Card = require("../card/card.model").Card;
+const Dashboard = require("../dashboard/dashboard.model").Dashboard;
 
 const createUser = (_, { input }, { login }) => {
   const { email, password } = input;
+  const user = new User({
+    email
+  });
   const card = new Card({
     title: "Welcome to Trello",
     description: "",
@@ -19,6 +23,10 @@ const createUser = (_, { input }, { login }) => {
     name: "Welcome Board",
     lists: list._id
   });
+  const dashboard = new Dashboard({
+    boards: board._id,
+    users: user._id
+  });
 
   card.save(err => {
     if (err) reject(err);
@@ -29,10 +37,8 @@ const createUser = (_, { input }, { login }) => {
   board.save(err => {
     if (err) reject(err);
   });
-
-  const user = new User({
-    email,
-    boards: board._id
+  dashboard.save(err => {
+    if (err) reject(err);
   });
 
   return new Promise((resolve, reject) => {
@@ -82,11 +88,12 @@ const userResolvers = {
   },
   User: {
     boards: async user => {
-      const boardData = await User.findById(user._id)
-        .populate("boards")
-        .exec();
+      const Users = await Dashboard.find({ users: user._id });
+      const boardsData = await Promise.all(
+        Users.map(({ boards }) => Board.findById(boards))
+      );
 
-      return boardData.boards;
+      return boardsData;
     }
   },
   Mutation: {

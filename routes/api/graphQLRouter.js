@@ -1,4 +1,5 @@
 const merge = require("lodash.merge");
+const { dashboardType, dashboardResolvers } = require("./dashboard");
 const { cardType, cardResolvers } = require("./card");
 const { listType, listResolvers } = require("./list");
 const { userType, userResolvers } = require("./user");
@@ -30,6 +31,9 @@ const baseSchema = gql`
   }
 
   type Mutation {
+    # Dashboard
+    updateDashboard(input: UpdateDashboard!): Dashboard!
+
     # User
     createUser(input: CreateUser!): User!
     login(input: Login!): User!
@@ -48,11 +52,19 @@ const baseSchema = gql`
 
 const graphQLRouter = new ApolloServer({
   // all the graphql files
-  typeDefs: [baseSchema, userType, boardType, listType, cardType],
+  typeDefs: [
+    baseSchema,
+    dashboardType,
+    userType,
+    boardType,
+    listType,
+    cardType
+  ],
 
   // all the resolvers
   resolvers: merge(
     {},
+    dashboardResolvers,
     userResolvers,
     boardResolvers,
     listResolvers,

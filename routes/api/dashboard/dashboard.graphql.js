@@ -1,17 +1,16 @@
 const { gql } = require("apollo-server-express");
 
 const schema = gql`
-  type Board {
+  type Dashboard {
     id: ID!
-    name: String!
+    boards: [Board]!
     users: [User]!
-    usersName: [String]!
-    lists: [List]!
   }
 
-  input UpdateBoard {
+  input UpdateDashboard {
     id: ID!
-    name: String!
+    # boards: [Board]!
+    # users: [User]!
   }
 `;
 
