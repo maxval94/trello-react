@@ -43,6 +43,7 @@ const baseSchema = gql`
     updateBoard(input: UpdateBoard!): Board!
 
     # Card
+    addCard(input: AddCard!): Card!
     updateCard(input: UpdateCard!): Card!
 
     # List

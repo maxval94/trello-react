@@ -4,7 +4,8 @@
   padding-left: 10px;
   padding-right: 10px;
   height: $nav-height;
-  background-color: #ccc;
+  background-color: $nav-bg;
+  color: $nav-color;
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
@@ -13,6 +14,9 @@
   left: 0;
   right: 0;
   
+  a {
+    color: inherit;
+  }
   &-user span {
     padding-right: 10px;
   }

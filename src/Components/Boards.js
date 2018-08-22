@@ -1,10 +1,17 @@
 import React, { Component } from "react";
+import { DragDropContext } from "react-beautiful-dnd";
 import Column from "./Column";
 
 class Boards extends Component {
   static defaultProps = {
     title: "",
     lists: []
+  };
+
+  state = this.props;
+
+  handleDragEnd = data => {
+    console.log("data", data);
   };
 
   render() {
@@ -14,9 +21,11 @@ class Boards extends Component {
       <div className="boards">
         <h2 className="boards__title">{title}</h2>
         <div className="boards__body">
-          {lists.map((el, index) => (
-            <Column key={index} {...el} />
-          ))}
+          <DragDropContext onDragEnd={this.handleDragEnd}>
+            {lists.map((el, index) => (
+              <Column key={index} {...el} />
+            ))}
+          </DragDropContext>
         </div>
       </div>
     );

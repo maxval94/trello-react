@@ -1,0 +1,31 @@
+.new-card {
+  font-size: $card-title;
+  
+  &__title {
+    cursor: pointer;
+  }
+  &--error textarea {
+    border-color: $erorr-color !important;
+  }
+  textarea {
+    display: block;
+    width: 100%;
+    background-color: $card-bg;
+    border: 1px solid $card-bg;
+    font-size: inherit;
+    padding: 5px;
+    resize: vertical;
+    outline: none;
+    color: inherit;
+    margin-bottom: 10px;
+  }
+  button {
+    font-size: $card-title;
+    background-color: $btn-add-new-bg;
+    color: #fff;
+    border: none;
+    padding: 5px 8px;
+    cursor: pointer;
+    outline: none;
+  }
+}
