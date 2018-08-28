@@ -24,10 +24,10 @@ const baseSchema = gql`
     logout: Logout!
 
     # Card
-    getCard: Card!
+    getCard(id: String!): Card!
 
     # List
-    getList: List!
+    getList(id: String!): List!
   }
 
   type Mutation {

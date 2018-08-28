@@ -15,9 +15,9 @@ const schema = gql`
 
   input UpdateCard {
     id: ID!
-    title: String!
-    description: String!
-    label: String!
+    title: String
+    description: String
+    label: String
   }
 `;
 

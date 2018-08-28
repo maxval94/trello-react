@@ -1,8 +1,10 @@
 const merge = require("lodash.merge");
 const List = require("./list.model").List;
 
-const getList = (_, __, { list }) => {
-  return list;
+const getList = async (_, { id }) => {
+  const list = await List.findById(id);
+
+  return list || {};
 };
 
 const updateList = (_, { input }, { list }) => {

@@ -1,5 +1,6 @@
 import gql from "graphql-tag";
 
+// User
 const createUser = gql`
   mutation createUser($input: CreateUser!) {
     createUser(input: $input) {
@@ -15,4 +16,20 @@ const loginUser = gql`
   }
 `;
 
-export { createUser, loginUser };
+// Card
+const addCard = gql`
+  mutation addCard($input: AddCard!) {
+    addCard(input: $input) {
+      title
+    }
+  }
+`;
+const updateCard = gql`
+  mutation updateCard($input: UpdateCard!) {
+    updateCard(input: $input) {
+      title
+    }
+  }
+`;
+
+export { createUser, loginUser, addCard, updateCard };
