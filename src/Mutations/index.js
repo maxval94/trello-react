@@ -16,6 +16,22 @@ const loginUser = gql`
   }
 `;
 
+// List
+const addList = gql`
+  mutation addList($input: AddList!) {
+    addList(input: $input) {
+      title
+    }
+  }
+`;
+const updateList = gql`
+  mutation updateList($input: UpdateList!) {
+    updateList(input: $input) {
+      title
+    }
+  }
+`;
+
 // Card
 const addCard = gql`
   mutation addCard($input: AddCard!) {
@@ -32,4 +48,4 @@ const updateCard = gql`
   }
 `;
 
-export { createUser, loginUser, addCard, updateCard };
+export { createUser, loginUser, addList, updateList, addCard, updateCard };

@@ -4,6 +4,12 @@ import Card from "./Card";
 import NewCard from "./NewCard";
 
 class Column extends Component {
+  static defaultProps = {
+    id: "",
+    title: "",
+    cards: []
+  };
+
   render() {
     const { id, title, cards } = this.props;
 

@@ -1,4 +1,3 @@
-const merge = require("lodash.merge");
 const List = require("./list.model").List;
 
 const getList = async (_, { id }) => {
@@ -7,9 +6,22 @@ const getList = async (_, { id }) => {
   return list || {};
 };
 
-const updateList = (_, { input }, { list }) => {
-  merge(list, input);
-  return list.save();
+const updateList = (_, { input }) => {
+  const { id, ...newData } = input;
+  const options = {
+    rawResult: true,
+    new: true
+  };
+
+  return new Promise((resolve, reject) => {
+    return List.findOneAndUpdate({ _id: id }, newData, options, (err, list) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(list.value);
+      }
+    });
+  });
 };
 
 const userResolvers = {

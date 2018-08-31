@@ -9,20 +9,19 @@ const getCard = async (_, { id }) => {
 
 const updateCard = (_, { input }) => {
   const { id, ...newData } = input;
+  const options = {
+    rawResult: true,
+    new: true
+  };
 
   return new Promise((resolve, reject) => {
-    return Card.findOneAndUpdate(
-      { _id: id },
-      newData,
-      { rawResult: true },
-      (err, card) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(card.value);
-        }
+    return Card.findOneAndUpdate({ _id: id }, newData, options, (err, card) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(card.value);
       }
-    );
+    });
   });
 };
 
@@ -36,10 +35,15 @@ const addCard = (_, { input }) => {
 
   return new Promise((resolve, reject) => {
     const newData = {
-      $push: { cards: card._id }
+      $push: {
+        cards: card._id
+      }
+    };
+    const options = {
+      new: true
     };
 
-    return List.findByIdAndUpdate(id, newData, (err, list) => {
+    return List.findByIdAndUpdate(id, newData, options, (err, list) => {
       card.save(err => {
         if (err) reject(err);
       });

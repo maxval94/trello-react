@@ -9,7 +9,8 @@ const schema = gql`
 
   input UpdateList {
     id: ID!
-    title: String!
+    title: String
+    cards: [String]
   }
 `;
 

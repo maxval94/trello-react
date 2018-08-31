@@ -12,7 +12,13 @@ const client = new ApolloClient({
   fetchOptions: {
     credentials: "same-origin"
   },
-  uri: Config.apolloClient.uri
+  uri: Config.apolloClient.uri,
+  clientState: {
+    defaults: {
+      email: "",
+      boards: []
+    }
+  }
 });
 
 class App extends React.Component {

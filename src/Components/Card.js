@@ -8,6 +8,7 @@ class Card extends Component {
     description: "",
     label: ""
   };
+
   render() {
     const { id, index, title, description } = this.props;
 
@@ -15,7 +16,7 @@ class Card extends Component {
       <Draggable draggableId={id} index={index}>
         {provided => (
           <div
-            {...provided.droppableProps}
+            {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
             className="card"
