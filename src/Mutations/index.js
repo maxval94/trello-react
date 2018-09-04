@@ -37,6 +37,10 @@ const addCard = gql`
   mutation addCard($input: AddCard!) {
     addCard(input: $input) {
       title
+      cards {
+        id
+        title
+      }
     }
   }
 `;
@@ -47,5 +51,20 @@ const updateCard = gql`
     }
   }
 `;
+const deleteCard = gql`
+  mutation deleteCard($input: DeleteCard!) {
+    deleteCard(input: $input) {
+      id
+    }
+  }
+`;
 
-export { createUser, loginUser, addList, updateList, addCard, updateCard };
+export {
+  createUser,
+  loginUser,
+  addList,
+  updateList,
+  addCard,
+  updateCard,
+  deleteCard
+};

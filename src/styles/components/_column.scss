@@ -1,5 +1,8 @@
 // Column Dnd
 .column {
+  flex: 1 1 $column-width;
+  width: $column-width;
+  max-width: $column-width;
   padding: 15px;
   border: 1px solid $column-border;
   background-color: $column-bg;

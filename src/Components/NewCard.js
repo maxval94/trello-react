@@ -5,7 +5,8 @@ import { addCard } from "../Mutations";
 
 class AddNewCard extends Component {
   static defaultProps = {
-    id: ""
+    id: "",
+    onAdd: () => {}
   };
 
   state = {
@@ -25,6 +26,10 @@ class AddNewCard extends Component {
       value: e.target.value,
       emptyValue: false
     });
+  };
+
+  handleUpdate = (cache, { data: { addCard } }) => {
+    this.props.onAdd(addCard.cards);
   };
 
   handleAdd = fetch => {
@@ -49,7 +54,10 @@ class AddNewCard extends Component {
   };
 
   handleComplete = () => {
-    console.log("need Update State Application");
+    this.setState({
+      isOpen: false,
+      value: ""
+    });
   };
 
   handleError = error => {
@@ -68,14 +76,7 @@ class AddNewCard extends Component {
     return (
       <Mutation
         mutation={addCard}
-        // update={(cache, { data: { addCard } }) => {
-        //   const { boards } = cache.readQuery({ query: getBoard });
-
-        //   // cache.writeQuery({
-        //   //   query: getBoard,
-        //   //   data: { boards }
-        //   // });
-        // }}
+        update={this.handleUpdate}
         onCompleted={this.handleComplete}
         onError={this.handleError}
       >

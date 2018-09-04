@@ -25,33 +25,17 @@ const updateCard = (_, { input }) => {
   });
 };
 
-const addCard = (_, { input }) => {
-  const { id, title } = input;
-  const card = new Card({
-    title,
-    description: "",
-    label: ""
-  });
+const deleteCard = (_, { input }) => {
+  const { id } = input;
 
   return new Promise((resolve, reject) => {
-    const newData = {
-      $push: {
-        cards: card._id
-      }
-    };
-    const options = {
-      new: true
-    };
-
-    return List.findByIdAndUpdate(id, newData, options, (err, list) => {
-      card.save(err => {
-        if (err) reject(err);
-      });
-
+    return Card.deleteOne({ _id: id }, (err, card) => {
       if (err) {
         reject(err);
       } else {
-        resolve(list);
+        resolve({
+          id
+        });
       }
     });
   });
@@ -62,8 +46,8 @@ const userResolvers = {
     getCard
   },
   Mutation: {
-    addCard,
-    updateCard
+    updateCard,
+    deleteCard
   }
 };
 

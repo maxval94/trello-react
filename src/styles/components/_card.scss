@@ -1,11 +1,23 @@
 // Card Dnd
 .card {
-  padding: 10px;
+  position: relative;
+  padding: 10px 24px 10px 10px;
   border: 1px solid $card-border;
   background-color: $card-bg;
   margin-bottom: 10px;
   
   &__title {
     font-size: $card-title;
+  }
+  &__description {
+    font-size: $card-desc;
+  }
+  .icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    font-size: 14px;
+    transform: translateY(-50%);
+    cursor: pointer;
   }
 }

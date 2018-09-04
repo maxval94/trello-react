@@ -57,4 +57,16 @@ const getBoard = gql`
   }
 `;
 
-export { logout, getUser, getBoard };
+const getList = gql`
+  query GetList($id: String!) {
+    getList(id: $id) {
+      title
+      cards {
+        id
+        title
+      }
+    }
+  }
+`;
+
+export { logout, getUser, getBoard, getList };

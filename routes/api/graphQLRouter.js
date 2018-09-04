@@ -43,11 +43,12 @@ const baseSchema = gql`
     updateBoard(input: UpdateBoard!): Board!
 
     # Card
-    addCard(input: AddCard!): Card!
     updateCard(input: UpdateCard!): Card!
+    deleteCard(input: DeleteCard!): Card!
 
     # List
     updateList(input: UpdateList!): List!
+    addCard(input: AddCard!): List!
   }
 `;
 

@@ -12,6 +12,11 @@ const schema = gql`
     title: String
     cards: [String]
   }
+
+  input AddCard {
+    id: ID!
+    title: String!
+  }
 `;
 
 module.exports = schema;

@@ -7,7 +7,28 @@ class Column extends Component {
   static defaultProps = {
     id: "",
     title: "",
-    cards: []
+    cards: [],
+    onUpdate: () => {}
+  };
+
+  handleAddCard = cards => {
+    const { id, title, onUpdate } = this.props;
+
+    onUpdate({
+      id,
+      title,
+      cards
+    });
+  };
+
+  handleDeleteCard = cardId => {
+    const { id, title, cards, onUpdate } = this.props;
+
+    onUpdate({
+      id,
+      title,
+      cards: cards.filter(card => card.id !== cardId)
+    });
   };
 
   render() {
@@ -24,13 +45,18 @@ class Column extends Component {
               className="column__card"
             >
               {cards.map((card, index) => (
-                <Card key={index} index={index} {...card} />
+                <Card
+                  key={index}
+                  index={index}
+                  {...card}
+                  onDelete={this.handleDeleteCard}
+                />
               ))}
               {provided.placeholder}
             </div>
           )}
         </Droppable>
-        <NewCard id={id} />
+        <NewCard id={id} onAdd={this.handleAddCard} />
       </div>
     );
   }

@@ -1,4 +1,5 @@
 const List = require("./list.model").List;
+const Card = require("../card/card.model").Card;
 
 const getList = async (_, { id }) => {
   const list = await List.findById(id);
@@ -24,6 +25,38 @@ const updateList = (_, { input }) => {
   });
 };
 
+const addCard = (_, { input }) => {
+  const { id, title } = input;
+  const card = new Card({
+    title,
+    description: "",
+    label: ""
+  });
+
+  return new Promise((resolve, reject) => {
+    const newData = {
+      $push: {
+        cards: card._id
+      }
+    };
+    const options = {
+      new: true
+    };
+
+    return List.findByIdAndUpdate(id, newData, options, (err, list) => {
+      card.save(err => {
+        if (err) reject(err);
+      });
+
+      if (err) {
+        reject(err);
+      } else {
+        resolve(list);
+      }
+    });
+  });
+};
+
 const userResolvers = {
   Query: {
     getList
@@ -38,7 +71,8 @@ const userResolvers = {
     }
   },
   Mutation: {
-    updateList
+    updateList,
+    addCard
   }
 };
 

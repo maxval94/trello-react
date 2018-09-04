@@ -8,16 +8,15 @@ const schema = gql`
     label: String!
   }
 
-  input AddCard {
-    id: ID!
-    title: String!
-  }
-
   input UpdateCard {
     id: ID!
     title: String
     description: String
     label: String
+  }
+
+  input DeleteCard {
+    id: ID!
   }
 `;
 

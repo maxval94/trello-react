@@ -12,6 +12,17 @@ class Boards extends Component {
 
   state = this.props;
 
+  handleUpdate = newList => {
+    const { lists } = this.state;
+    const newLists = lists.map(
+      list => (list.id === newList.id ? newList : list)
+    );
+
+    this.setState({
+      lists: newLists
+    });
+  };
+
   handleDragEnd = (data, fetch) => {
     const { destination, source, draggableId } = data;
 
@@ -55,7 +66,7 @@ class Boards extends Component {
   };
 
   render() {
-    const { title, refreshBoard } = this.props;
+    const { title } = this.props;
     const { lists } = this.state;
 
     return (
@@ -70,7 +81,7 @@ class Boards extends Component {
                 }}
               >
                 {lists.map((el, index) => (
-                  <Column key={index} {...el} refreshBoard={refreshBoard} />
+                  <Column key={index} {...el} onUpdate={this.handleUpdate} />
                 ))}
               </DragDropContext>
             )}
