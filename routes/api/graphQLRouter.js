@@ -41,6 +41,7 @@ const baseSchema = gql`
 
     # Board
     updateBoard(input: UpdateBoard!): Board!
+    addList(input: AddList): Board!
 
     # Card
     updateCard(input: UpdateCard!): Card!
@@ -48,6 +49,7 @@ const baseSchema = gql`
 
     # List
     updateList(input: UpdateList!): List!
+    deleteList(input: DeleteList): List!
     addCard(input: AddCard!): List!
   }
 `;

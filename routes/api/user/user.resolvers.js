@@ -11,7 +11,7 @@ const createUser = (_, { input }, { login }) => {
     email
   });
   const card = new Card({
-    title: "Welcome to Trello",
+    title: "Welcome to Dashboard",
     description: "",
     label: ""
   });

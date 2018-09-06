@@ -9,7 +9,13 @@ class Board extends Component {
   };
 
   renderBoards(data) {
-    return <Boards lists={data.lists} title={data.name} />;
+    return (
+      <Boards
+        boardId={this.getBoardId()}
+        lists={data.lists}
+        title={data.name}
+      />
+    );
   }
 
   render() {

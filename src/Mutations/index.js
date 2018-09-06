@@ -20,7 +20,15 @@ const loginUser = gql`
 const addList = gql`
   mutation addList($input: AddList!) {
     addList(input: $input) {
-      title
+      name
+      lists {
+        id
+        title
+        cards {
+          id
+          title
+        }
+      }
     }
   }
 `;
@@ -28,6 +36,13 @@ const updateList = gql`
   mutation updateList($input: UpdateList!) {
     updateList(input: $input) {
       title
+    }
+  }
+`;
+const deleteList = gql`
+  mutation deleteList($input: DeleteList!) {
+    deleteList(input: $input) {
+      id
     }
   }
 `;
@@ -64,6 +79,7 @@ export {
   loginUser,
   addList,
   updateList,
+  deleteList,
   addCard,
   updateCard,
   deleteCard

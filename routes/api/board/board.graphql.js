@@ -13,6 +13,11 @@ const schema = gql`
     id: ID!
     name: String!
   }
+
+  input AddList {
+    id: ID!
+    title: String!
+  }
 `;
 
 module.exports = schema;

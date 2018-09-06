@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import classnames from "classnames";
 import { Mutation } from "react-apollo";
 import Icon from "./Icon";
-import { addCard } from "../Mutations";
+import { addList } from "../Mutations";
 
-class AddNewCard extends Component {
+class AddNewColumn extends Component {
   static defaultProps = {
     id: "",
     onAdd: () => {}
@@ -29,8 +29,8 @@ class AddNewCard extends Component {
     });
   };
 
-  handleUpdate = (cache, { data: { addCard } }) => {
-    this.props.onAdd(addCard.cards);
+  handleUpdate = (cache, { data: { addList } }) => {
+    this.props.onAdd(addList.lists);
   };
 
   handleAdd = fetch => {
@@ -67,8 +67,8 @@ class AddNewCard extends Component {
 
   renderNewContent() {
     return (
-      <div className="new-card__title" onClick={this.handleOpen}>
-        Add New Card
+      <div className="new-column__title" onClick={this.handleOpen}>
+        Add New Lists
       </div>
     );
   }
@@ -76,15 +76,16 @@ class AddNewCard extends Component {
   renderEditableContent() {
     return (
       <Mutation
-        mutation={addCard}
+        mutation={addList}
         update={this.handleUpdate}
         onCompleted={this.handleComplete}
         onError={this.handleError}
       >
         {(fetch, { data }) => (
-          <div className="new-card__content">
-            <textarea
-              placeholder="Enter Title for this card"
+          <div className="new-column__content">
+            <input
+              type="text"
+              placeholder="Enter Title for this Lists"
               value={this.state.value}
               onChange={this.handleValueChange}
             />
@@ -103,18 +104,18 @@ class AddNewCard extends Component {
   }
 
   render() {
-    const className = classnames("new-card", {
-      "new-card--error": this.state.emptyValue
+    const { isOpen, emptyValue } = this.state;
+    const className = classnames("column", "new-column", {
+      "new-column--opened": isOpen,
+      "new-column--error": emptyValue
     });
 
     return (
       <div className={className}>
-        {this.state.isOpen
-          ? this.renderEditableContent()
-          : this.renderNewContent()}
+        {isOpen ? this.renderEditableContent() : this.renderNewContent()}
       </div>
     );
   }
 }
 
-export default AddNewCard;
+export default AddNewColumn;

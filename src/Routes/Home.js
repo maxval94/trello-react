@@ -7,9 +7,9 @@ class Home extends Component {
   renderBoard({ boards }) {
     return boards.map((board, index) => {
       return (
-        <div key={index} className="page-board">
-          <Link to={`/board/:${board.id}`}>{board.name}</Link>
-        </div>
+        <Link key={index} className="page-board" to={`/board/:${board.id}`}>
+          {board.name}
+        </Link>
       );
     });
   }

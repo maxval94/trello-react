@@ -1,0 +1,23 @@
+.delete-column {
+  font-size: 15px;
+  cursor: pointer;
+  position: relative;
+  z-index: 99;
+
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 120px;
+    padding: 5px; 
+    background-color: $light-green;
+    color: #fff;
+  }
+  &__dropdown-item {
+    font-size: 13px;
+
+    .fa {
+      margin-right: 5px;
+    }
+  }
+}

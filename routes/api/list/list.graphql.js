@@ -13,6 +13,10 @@ const schema = gql`
     cards: [String]
   }
 
+  input DeleteList {
+    id: ID!
+  }
+
   input AddCard {
     id: ID!
     title: String!

@@ -3,9 +3,11 @@ import { Mutation } from "react-apollo";
 import { DragDropContext } from "react-beautiful-dnd";
 import Column from "./Column";
 import { updateList } from "../Mutations";
+import NewColumn from "./NewColumn";
 
 class Boards extends Component {
   static defaultProps = {
+    boardId: "",
     title: "",
     lists: []
   };
@@ -17,6 +19,21 @@ class Boards extends Component {
     const newLists = lists.map(
       list => (list.id === newList.id ? newList : list)
     );
+
+    this.setState({
+      lists: newLists
+    });
+  };
+
+  handleAddColumn = newLists => {
+    this.setState({
+      lists: newLists
+    });
+  };
+
+  handleDeleteColumn = listId => {
+    const { lists } = this.state;
+    const newLists = lists.filter(list => list.id !== listId);
 
     this.setState({
       lists: newLists
@@ -57,7 +74,7 @@ class Boards extends Component {
     // Update State
     const newList = Object.assign({}, list, { cards });
     const newLists = lists.map(
-      ({ id }) => (id === source.droppableId ? newList : list)
+      list => (list.id === source.droppableId ? newList : list)
     );
 
     this.setState({
@@ -66,26 +83,34 @@ class Boards extends Component {
   };
 
   render() {
-    const { title } = this.props;
+    const { title, boardId } = this.props;
     const { lists } = this.state;
 
     return (
-      <div className="boards">
-        <h2 className="boards__title">{title}</h2>
-        <div className="boards__body">
-          <Mutation mutation={updateList}>
-            {fetch => (
-              <DragDropContext
-                onDragEnd={data => {
-                  this.handleDragEnd(data, fetch);
-                }}
-              >
-                {lists.map((el, index) => (
-                  <Column key={index} {...el} onUpdate={this.handleUpdate} />
-                ))}
-              </DragDropContext>
-            )}
-          </Mutation>
+      <div className="board">
+        <h2 className="board__title">{title}</h2>
+        <div className="board__body">
+          <div className="board__content">
+            <Mutation mutation={updateList}>
+              {fetch => (
+                <DragDropContext
+                  onDragEnd={data => {
+                    this.handleDragEnd(data, fetch);
+                  }}
+                >
+                  {lists.map((el, index) => (
+                    <Column
+                      key={index}
+                      {...el}
+                      onUpdate={this.handleUpdate}
+                      onDelete={this.handleDeleteColumn}
+                    />
+                  ))}
+                </DragDropContext>
+              )}
+            </Mutation>
+            <NewColumn id={boardId} onAdd={this.handleAddColumn} />
+          </div>
         </div>
       </div>
     );

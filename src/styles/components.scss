@@ -1,8 +1,14 @@
 // Boards
-@import "components/boards";
+@import "components/board";
 
 // Column
 @import "components/column";
+
+// New Column
+@import "components/new-column";
+
+// Delete Column
+@import "components/delete-column";
 
 // Card
 @import "components/card";

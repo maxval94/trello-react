@@ -1,23 +1,23 @@
-.new-card {
+.new-column {
+  padding: 10px;
+  height: 37px;
+  cursor: pointer;
   font-size: $card-title;
-  
-  &__title {
-    cursor: pointer;
+
+  &--opened {
+    height: 98px;
   }
-  &--error textarea {
-    border-color: $erorr-color !important;
-  }
-  textarea {
+  input {
     display: block;
     width: 100%;
     background-color: $card-bg;
     border: 1px solid $card-bg;
     font-size: inherit;
     padding: 5px;
-    resize: vertical;
     outline: none;
     color: inherit;
     margin-bottom: 10px;
+    height: 37px;
   }
   button {
     font-size: $card-title;

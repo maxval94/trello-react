@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import Card from "./Card";
 import NewCard from "./NewCard";
+import DeleteColumn from "./DeleteColumn";
 
 class Column extends Component {
   static defaultProps = {
     id: "",
     title: "",
     cards: [],
-    onUpdate: () => {}
+    onUpdate: () => {},
+    onDelete: () => {}
   };
 
   handleAddCard = cards => {
@@ -32,11 +34,14 @@ class Column extends Component {
   };
 
   render() {
-    const { id, title, cards } = this.props;
+    const { id, title, cards, onDelete } = this.props;
 
     return (
       <div className="column">
-        <h3 className="column__title">{title}</h3>
+        <div className="column__head">
+          <h3 className="column__title">{title}</h3>
+          <DeleteColumn id={id} onDelete={onDelete} />
+        </div>
         <Droppable droppableId={id}>
           {provided => (
             <div

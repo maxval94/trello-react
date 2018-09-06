@@ -1,14 +1,22 @@
 // Column Dnd
 .column {
-  flex: 1 1 $column-width;
+  display: inline-block;
+  vertical-align: top;
   width: $column-width;
   max-width: $column-width;
   padding: 15px;
+  margin: 0 5px;
   border: 1px solid $column-border;
   background-color: $column-bg;
 
+  &__head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
   &__title {
     font-size: $column-title;
-    margin-bottom: 0.5em;
   }
 }

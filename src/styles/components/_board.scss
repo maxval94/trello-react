@@ -1,0 +1,22 @@
+// Board
+.board {
+  height: 100%;
+  
+  &__title {
+    font-size: $board-title;
+  }
+  &__body {
+    position: relative;
+    height: 100%;
+  }
+  &__content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden; 
+  }
+}

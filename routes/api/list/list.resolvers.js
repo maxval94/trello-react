@@ -25,6 +25,22 @@ const updateList = (_, { input }) => {
   });
 };
 
+const deleteList = (_, { input }) => {
+  const { id } = input;
+
+  return new Promise((resolve, reject) => {
+    return List.deleteOne({ _id: id }, err => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve({
+          id
+        });
+      }
+    });
+  });
+};
+
 const addCard = (_, { input }) => {
   const { id, title } = input;
   const card = new Card({
@@ -72,7 +88,8 @@ const userResolvers = {
   },
   Mutation: {
     updateList,
-    addCard
+    addCard,
+    deleteList
   }
 };
 
