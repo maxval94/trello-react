@@ -13,6 +13,28 @@ class DeleteColumn extends Component {
     isOpen: false
   };
 
+  handleRef = node => {
+    this.node = node;
+  };
+
+  componentDidMount() {
+    document.addEventListener("click", this.handleOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleOutside);
+  }
+
+  handleOutside = e => {
+    const isOutside = e.target.closest(`.${this.node.className}`);
+
+    if (!isOutside) {
+      this.setState({
+        isOpen: false
+      });
+    }
+  };
+
   handleOpen = () => {
     this.setState(state => ({
       isOpen: !state.isOpen
@@ -63,7 +85,11 @@ class DeleteColumn extends Component {
 
   render() {
     return (
-      <div className="delete-column" onClick={this.handleOpen}>
+      <div
+        ref={this.handleRef}
+        className="delete-column"
+        onClick={this.handleOpen}
+      >
         <Icon iconName="ellipsis-v" />
         {this.state.isOpen && this.renderDropdown()}
       </div>

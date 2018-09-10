@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import classnames from "classnames";
 import { Draggable } from "react-beautiful-dnd";
 import { Mutation } from "react-apollo";
 import Icon from "./Icon";
@@ -10,6 +11,12 @@ class Card extends Component {
     title: "",
     description: "",
     label: ""
+  };
+
+  getClassName = ({ isDragging }) => {
+    return classnames("card", {
+      "card--dragging": isDragging
+    });
   };
 
   handleDelete = fetch => {
@@ -39,12 +46,12 @@ class Card extends Component {
 
     return (
       <Draggable draggableId={id} index={index}>
-        {provided => (
+        {(provided, snapshot) => (
           <div
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
-            className="card"
+            className={this.getClassName(snapshot)}
           >
             <h4 className="card__title">{title}</h4>
             <Mutation

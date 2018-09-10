@@ -62,8 +62,8 @@ module.exports = (env, argv) => {
     plugins: [
       new MiniCssExtractPlugin({
         filename: IS_DEVELOPMENT
-          ? "stylesheets/style.css"
-          : "stylesheets/style.min.css"
+          ? "stylesheets/[name].css"
+          : "stylesheets/[name].min.css"
       })
     ],
     watch: IS_DEVELOPMENT,

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Droppable } from "react-beautiful-dnd";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import Card from "./Card";
 import NewCard from "./NewCard";
 import DeleteColumn from "./DeleteColumn";
@@ -47,7 +47,7 @@ class Column extends Component {
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="column__card"
+              className="column__cards"
             >
               {cards.map((card, index) => (
                 <Card

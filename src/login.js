@@ -4,6 +4,7 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider, Mutation } from "react-apollo";
 import Config from "../config/config.json";
 import { createUser, loginUser } from "./Mutations";
+import "./styles/login.scss";
 
 class Login extends React.Component {
   state = {
@@ -46,7 +47,7 @@ class Login extends React.Component {
   };
 
   renderError(error) {
-    return <div>{error}</div>;
+    return <div className="login__error">{error}</div>;
   }
 
   renderForms() {
@@ -70,27 +71,32 @@ class Login extends React.Component {
               fetch({ variables: { input: { email, password } } });
             }}
           >
-            <input
-              type="email"
-              value={email}
-              onChange={e => {
-                this.handleChange(e.target.value, "email");
-              }}
-            />
-            <input
-              type="password"
-              value={password}
-              onChange={e => {
-                this.handleChange(e.target.value, "password");
-              }}
-            />
-            <button type="submit" onClick={this.handleLogin}>
-              Login
-            </button>
-            or
-            <button type="submit" onClick={this.handleSignUp}>
-              Sign Up
-            </button>
+            <div className="login__data">
+              <input
+                type="email"
+                value={email}
+                placeholder="Email"
+                onChange={e => {
+                  this.handleChange(e.target.value, "email");
+                }}
+              />
+              <input
+                type="password"
+                value={password}
+                placeholder="Password"
+                onChange={e => {
+                  this.handleChange(e.target.value, "password");
+                }}
+              />
+            </div>
+            <div className="login__submit">
+              <button type="submit" onClick={this.handleLogin}>
+                Login
+              </button>
+              <button type="submit" onClick={this.handleSignUp}>
+                Sign Up
+              </button>
+            </div>
           </form>
         )}
       </Mutation>
@@ -102,6 +108,7 @@ class Login extends React.Component {
 
     return (
       <React.Fragment>
+        <h1 className="login__title">Welcome</h1>
         {this.renderForms()}
         {error && this.renderError(error)}
       </React.Fragment>

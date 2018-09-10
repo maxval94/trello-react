@@ -19,7 +19,8 @@
     "morgan": "^1.9.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "timm": "^1.6.1"
   },
   "devDependencies": {
     "apollo-server-express": "^2.0.0",

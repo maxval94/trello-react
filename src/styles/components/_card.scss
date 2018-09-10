@@ -20,4 +20,7 @@
     transform: translateY(-50%);
     cursor: pointer;
   }
+  &--dragging {
+    background-color: $light-blue;
+  }
 }

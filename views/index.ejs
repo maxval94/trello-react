@@ -10,20 +10,28 @@
     crossorigin="anonymous">
 
   <% if(settings.env === 'development') { %>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <% } else { %>
-      <link rel='stylesheet' href='/stylesheets/style.min.css' />
-      <% } %>
+  <% if(user) { %>
+  <link rel='stylesheet' href='/stylesheets/main.css' />
+  <% } else { %>
+  <link rel='stylesheet' href='/stylesheets/login.css' />
+  <% } %>
+  <% } else { %>
+  <% if(user) { %>
+  <link rel='stylesheet' href='/stylesheets/main.min.css' />
+  <% } else { %>
+  <link rel='stylesheet' href='/stylesheets/login.min.css' />
+  <% } %>
+  <% } %>
 </head>
 
 <body>
   <div id="root"></div>
 
   <% if(user) { %>
-    <script src="/javascripts/main.js"></script>
-    <% } else { %>
-      <script src="/javascripts/login.js"></script>
-      <% } %>
+  <script src="/javascripts/main.js"></script>
+  <% } else { %>
+  <script src="/javascripts/login.js"></script>
+  <% } %>
 </body>
 
 </html>

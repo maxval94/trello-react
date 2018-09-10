@@ -1,0 +1,78 @@
+// Reset 
+@import "reset";
+
+// Variabled
+@import "variables";
+
+// main
+html,
+body {
+  height: 100%;
+  background-color: $light-blue;
+  color: #fff;
+}
+
+#root {
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.login {
+  &__title {
+    margin-bottom: 10px;
+  }
+  &__data {
+    margin-bottom: 10px;
+
+    input {
+      margin-left: 10px;
+      margin-right: 10px;
+      border: none;
+      border-bottom: 1px solid $light-gray;
+      background-color: transparent !important;
+      outline: none;
+      padding: 10px;
+      width: calc(50% - 20px);
+      color: inherit;
+      font-size: 14px;      
+    }
+  }
+  &__submit {
+    button {
+      padding: 10px 15px;
+      font-size: 14px;
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid $light-gray;
+      transition: 0.2s linear background-color, 0.2s linear border-color;
+      cursor: pointer;  
+      min-width: 150px;
+
+      &:hover {
+        transition: 0.2s linear background-color, 0.2s linear border-color;
+        background-color: $light-green;
+        border-color: transparent;
+      }
+    }
+  }
+  &__error {
+    padding: 10px;
+    background-color: $light-red;
+    font-size: 15px;
+  }
+}
+
+input::-webkit-input-placeholder {
+  color: inherit;
+}
+input::-webkit-autofill {
+  background: none; 
+  background-color: transparent !important;
+}

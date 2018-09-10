@@ -2,6 +2,7 @@
 $light-green: #8bc34a;
 $light-blue: #03a9f4;
 $light-red: #f44336;
+$light-gray: #d8d8d8;
 
 // Nav
 $nav-height: 40px;
@@ -13,8 +14,8 @@ $board-title: 22px;
 
 // Column
 $column-width: 280px;
-$column-border: #d8d8d8;
-$column-bg: #d8d8d8;
+$column-border: $light-gray;
+$column-bg: $light-gray;
 $column-title: 18px;
 
 // Card
