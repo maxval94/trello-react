@@ -1,4 +1,3 @@
-const merge = require("lodash.merge");
 const Board = require("./board.model").Board;
 const User = require("../user/user.model").User;
 const Dashboard = require("../dashboard/dashboard.model").Dashboard;
@@ -9,9 +8,27 @@ const getBoard = async (_, { id }) => {
   return await Board.findById(id);
 };
 
-const updateBoard = (_, { input }, { board }) => {
-  merge(board, input);
-  return board.save();
+const updateBoard = (_, { input }) => {
+  const { id, ...newData } = input;
+  const options = {
+    rawResult: true,
+    new: true
+  };
+
+  return new Promise((resolve, reject) => {
+    return Board.findOneAndUpdate(
+      { _id: id },
+      newData,
+      options,
+      (err, board) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(board.value);
+        }
+      }
+    );
+  });
 };
 
 const addList = (_, { input }) => {

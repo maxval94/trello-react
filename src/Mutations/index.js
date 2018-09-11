@@ -16,7 +16,15 @@ const loginUser = gql`
   }
 `;
 
-// List
+// Board
+const updateBoard = gql`
+  mutation updateBoard($input: UpdateBoard!) {
+    updateBoard(input: $input) {
+      name
+    }
+  }
+`;
+
 const addList = gql`
   mutation addList($input: AddList!) {
     addList(input: $input) {
@@ -32,6 +40,8 @@ const addList = gql`
     }
   }
 `;
+
+// List
 const updateList = gql`
   mutation updateList($input: UpdateList!) {
     updateList(input: $input) {
@@ -77,6 +87,7 @@ const deleteCard = gql`
 export {
   createUser,
   loginUser,
+  updateBoard,
   addList,
   updateList,
   deleteList,

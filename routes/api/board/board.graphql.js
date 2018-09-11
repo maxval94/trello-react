@@ -11,7 +11,8 @@ const schema = gql`
 
   input UpdateBoard {
     id: ID!
-    name: String!
+    name: String
+    lists: [String]
   }
 
   input AddList {

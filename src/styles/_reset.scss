@@ -53,3 +53,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+// Normalize DnD
+[data-react-beautiful-dnd-drag-handle="0"] {
+  cursor: auto !important;
+}

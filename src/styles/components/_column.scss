@@ -4,7 +4,7 @@
   vertical-align: top;
   width: $column-width;
   max-width: $column-width;
-  padding: 15px;
+  padding: 0 15px 15px;
   margin: 0 5px;
   border: 1px solid $column-border;
   background-color: $column-bg;
@@ -18,6 +18,7 @@
   }
   &__title {
     font-size: $column-title;
+    padding-top: 15px;
   }
   &__cards {
     min-height: 20px;

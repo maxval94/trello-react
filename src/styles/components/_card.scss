@@ -5,7 +5,8 @@
   border: 1px solid $card-border;
   background-color: $card-bg;
   margin-bottom: 10px;
-  
+  cursor: pointer !important;
+
   &__title {
     font-size: $card-title;
   }

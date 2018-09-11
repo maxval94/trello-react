@@ -3,11 +3,11 @@ import { removeAt, insert } from "timm";
 import { Mutation } from "react-apollo";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Column from "./Column";
-import { updateList } from "../Mutations";
+import { updateList, updateBoard } from "../Mutations";
 import NewColumn from "./NewColumn";
 
-const getCardsIds = cards => {
-  return cards.map(card => card.id);
+const getIds = data => {
+  return data.map(({ id }) => id);
 };
 
 class Boards extends Component {
@@ -46,7 +46,7 @@ class Boards extends Component {
   };
 
   handleDragEnd = (data, fetch) => {
-    const { destination, source } = data;
+    const { destination, source, type } = data;
 
     if (
       !destination ||
@@ -56,11 +56,38 @@ class Boards extends Component {
       return;
     }
 
-    if (source.droppableId === destination.droppableId) {
-      this.handleDragInCurrentColumn(data, fetch);
+    if (type === "column") {
+      this.handleDragBetweenColumn(data, fetch);
     } else {
-      this.handleDragInDifferentColumn(data, fetch);
+      if (source.droppableId === destination.droppableId) {
+        this.handleDragInCurrentColumn(data, fetch);
+      } else {
+        this.handleDragInDifferentColumn(data, fetch);
+      }
     }
+  };
+
+  handleDragBetweenColumn = (data, fetch) => {
+    const { destination, source, draggableId } = data;
+    const { lists } = this.state;
+    const list = lists.find(list => list.id === draggableId);
+    const newLists = [...lists];
+    newLists.splice(source.index, 1);
+    newLists.splice(destination.index, 0, list);
+
+    // Fetch Data
+    fetch({
+      variables: {
+        input: {
+          id: this.props.boardId,
+          lists: getIds(newLists)
+        }
+      }
+    });
+
+    this.setState({
+      lists: newLists
+    });
   };
 
   handleDragInCurrentColumn = (data, fetch) => {
@@ -79,7 +106,7 @@ class Boards extends Component {
       variables: {
         input: {
           id: source.droppableId,
-          cards: getCardsIds(cards)
+          cards: getIds(cards)
         }
       }
     });
@@ -109,7 +136,7 @@ class Boards extends Component {
       variables: {
         input: {
           id: source.droppableId,
-          cards: getCardsIds(removeAt(startList.cards, source.index))
+          cards: getIds(removeAt(startList.cards, source.index))
         }
       }
     });
@@ -124,7 +151,7 @@ class Boards extends Component {
       variables: {
         input: {
           id: destination.droppableId,
-          cards: getCardsIds(insert(finishList.cards, destination.index, card))
+          cards: getIds(insert(finishList.cards, destination.index, card))
         }
       }
     });
@@ -154,27 +181,46 @@ class Boards extends Component {
       <div className="board">
         <h2 className="board__title">{title}</h2>
         <div className="board__body">
-          <Mutation mutation={updateList}>
-            {fetch => (
-              <DragDropContext
-                onDragEnd={data => {
-                  this.handleDragEnd(data, fetch);
-                }}
-              >
-                <div className="board__content">
-                  {lists.map((el, index) => (
-                    <Column
-                      key={index}
-                      {...el}
-                      onUpdate={this.handleUpdate}
-                      onDelete={this.handleDeleteColumn}
-                    />
-                  ))}
-                </div>
-              </DragDropContext>
+          <Mutation mutation={updateBoard}>
+            {fetchBoard => (
+              <Mutation mutation={updateList}>
+                {fetchList => (
+                  <DragDropContext
+                    onDragEnd={data => {
+                      const fetch =
+                        data.type === "column" ? fetchBoard : fetchList;
+                      this.handleDragEnd(data, fetch);
+                    }}
+                  >
+                    <Droppable
+                      droppableId="all-columns"
+                      direction="horizontal"
+                      type="column"
+                    >
+                      {provided => (
+                        <div ref={provided.innerRef} className="board__content">
+                          {lists.map((el, index) => (
+                            <Column
+                              key={index}
+                              index={index}
+                              {...el}
+                              onUpdate={this.handleUpdate}
+                              onDelete={this.handleDeleteColumn}
+                            />
+                          ))}
+                          {provided.placeholder}
+                          <NewColumn
+                            id={boardId}
+                            onAdd={this.handleAddColumn}
+                          />
+                        </div>
+                      )}
+                    </Droppable>
+                  </DragDropContext>
+                )}
+              </Mutation>
             )}
           </Mutation>
-          <NewColumn id={boardId} onAdd={this.handleAddColumn} />
         </div>
       </div>
     );

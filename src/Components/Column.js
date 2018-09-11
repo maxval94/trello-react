@@ -7,6 +7,7 @@ import DeleteColumn from "./DeleteColumn";
 class Column extends Component {
   static defaultProps = {
     id: "",
+    index: 0,
     title: "",
     cards: [],
     onUpdate: () => {},
@@ -34,35 +35,44 @@ class Column extends Component {
   };
 
   render() {
-    const { id, title, cards, onDelete } = this.props;
+    const { id, index, title, cards, onDelete } = this.props;
 
     return (
-      <div className="column">
-        <div className="column__head">
-          <h3 className="column__title">{title}</h3>
-          <DeleteColumn id={id} onDelete={onDelete} />
-        </div>
-        <Droppable droppableId={id}>
-          {provided => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className="column__cards"
-            >
-              {cards.map((card, index) => (
-                <Card
-                  key={index}
-                  index={index}
-                  {...card}
-                  onDelete={this.handleDeleteCard}
-                />
-              ))}
-              {provided.placeholder}
+      <Draggable draggableId={id} index={index}>
+        {provided => (
+          <div
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+            className="column"
+          >
+            <div className="column__head">
+              <h3 className="column__title">{title}</h3>
+              <DeleteColumn id={id} onDelete={onDelete} />
             </div>
-          )}
-        </Droppable>
-        <NewCard id={id} onAdd={this.handleAddCard} />
-      </div>
+            <Droppable droppableId={id} type="card">
+              {provided => (
+                <div
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className="column__cards"
+                >
+                  {cards.map((card, index) => (
+                    <Card
+                      key={index}
+                      index={index}
+                      {...card}
+                      onDelete={this.handleDeleteCard}
+                    />
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+            <NewCard id={id} onAdd={this.handleAddCard} />
+          </div>
+        )}
+      </Draggable>
     );
   }
 }

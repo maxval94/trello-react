@@ -13,6 +13,10 @@ class Card extends Component {
     label: ""
   };
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.id !== nextProps.id;
+  }
+
   getClassName = ({ isDragging }) => {
     return classnames("card", {
       "card--dragging": isDragging
