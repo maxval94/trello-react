@@ -10,17 +10,21 @@ class Card extends Component {
     id: "",
     title: "",
     description: "",
-    label: ""
+    label: "",
+    isDragDisabled: false,
+    onOpenPrompt: () => {}
   };
-
-  shouldComponentUpdate(nextProps) {
-    return this.props.id !== nextProps.id;
-  }
 
   getClassName = ({ isDragging }) => {
     return classnames("card", {
       "card--dragging": isDragging
     });
+  };
+
+  handlePrompOpen = () => {
+    const { id, onOpenPrompt } = this.props;
+
+    onOpenPrompt(id);
   };
 
   handleDelete = fetch => {
@@ -46,16 +50,17 @@ class Card extends Component {
   };
 
   render() {
-    const { id, index, title } = this.props;
+    const { id, index, title, isDragDisabled } = this.props;
 
     return (
-      <Draggable draggableId={id} index={index}>
+      <Draggable draggableId={id} index={index} isDragDisabled={isDragDisabled}>
         {(provided, snapshot) => (
           <div
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
             className={this.getClassName(snapshot)}
+            onClick={this.handlePrompOpen}
           >
             <h4 className="card__title">{title}</h4>
             <Mutation

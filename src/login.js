@@ -60,7 +60,7 @@ class Login extends React.Component {
         onCompleted={this.handleComplete}
         onError={this.handleError}
       >
-        {(fetch, { data }) => (
+        {fetch => (
           <form
             onSubmit={e => {
               e.preventDefault();

@@ -1,0 +1,40 @@
+.prompt {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: $prompt-z-index;
+
+  &__backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: #000000, $alpha: 0.7);
+  }
+  &__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 1;
+    color: #fff;
+  }
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  &__wrap {
+    position: relative;
+    max-width: 60%;
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+  }
+}

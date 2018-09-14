@@ -3,6 +3,7 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 import Card from "./Card";
 import NewCard from "./NewCard";
 import DeleteColumn from "./DeleteColumn";
+import PromptCard from "./PromptCard";
 
 class Column extends Component {
   static defaultProps = {
@@ -12,6 +13,10 @@ class Column extends Component {
     cards: [],
     onUpdate: () => {},
     onDelete: () => {}
+  };
+
+  state = {
+    promptId: ""
   };
 
   handleAddCard = cards => {
@@ -34,11 +39,31 @@ class Column extends Component {
     });
   };
 
+  handleOpenPrompt = promptId => {
+    this.setState({
+      promptId
+    });
+  };
+
+  handleClosePrompt = () => {
+    this.setState({
+      promptId: ""
+    });
+  };
+
+  renderPrompt() {
+    const { promptId } = this.state;
+
+    return <PromptCard id={promptId} onClose={this.handleClosePrompt} />;
+  }
+
   render() {
     const { id, index, title, cards, onDelete } = this.props;
+    const { promptId } = this.state;
+    const hasPrompt = Boolean(promptId);
 
     return (
-      <Draggable draggableId={id} index={index}>
+      <Draggable draggableId={id} index={index} isDragDisabled={hasPrompt}>
         {provided => (
           <div
             {...provided.draggableProps}
@@ -62,13 +87,16 @@ class Column extends Component {
                       key={index}
                       index={index}
                       {...card}
+                      isDragDisabled={hasPrompt}
                       onDelete={this.handleDeleteCard}
+                      onOpenPrompt={this.handleOpenPrompt}
                     />
                   ))}
                   {provided.placeholder}
                 </div>
               )}
             </Droppable>
+            {hasPrompt && this.renderPrompt()}
             <NewCard id={id} onAdd={this.handleAddCard} />
           </div>
         )}
