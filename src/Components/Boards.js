@@ -19,6 +19,10 @@ class Boards extends Component {
 
   state = this.props;
 
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps);
+  }
+
   handleUpdate = newList => {
     const { lists } = this.state;
     const newLists = lists.map(
@@ -204,6 +208,7 @@ class Boards extends Component {
                               key={index}
                               index={index}
                               {...el}
+                              boardId={boardId}
                               onUpdate={this.handleUpdate}
                               onDelete={this.handleDeleteColumn}
                             />

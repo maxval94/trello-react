@@ -54,7 +54,13 @@ class Column extends Component {
   renderPrompt() {
     const { promptId } = this.state;
 
-    return <PromptCard id={promptId} onClose={this.handleClosePrompt} />;
+    return (
+      <PromptCard
+        id={promptId}
+        boardId={this.props.boardId}
+        onClose={this.handleClosePrompt}
+      />
+    );
   }
 
   render() {

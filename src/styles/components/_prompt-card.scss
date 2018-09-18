@@ -37,4 +37,41 @@
     background-color: #fff;
     padding: 20px;
   }
+  &__card-title {
+    margin-bottom: 10px;
+
+    input {
+      display: block;
+      width: 100%;
+      border: 1px solid transparent;
+      outline: none;
+      padding: 5px 10px;
+      font-size: inherit;
+
+      &:focus {
+        border-color: $light-green
+      }
+    }
+  }
+  &__card-description {
+    textarea {
+      display: block;
+      width: 100%;
+      resize: vertical;
+      font-size: 14px;
+      border: 1px solid $light-gray;
+      outline: none;
+      padding: 5px 10px;
+
+      &:focus {
+        border-color: $light-green;
+      }
+    }
+  }
+  &__card--error {
+    color: #fff;
+    background-color: $light-red;
+    padding: 10px;
+    font-size: 12px;
+  }
 }
