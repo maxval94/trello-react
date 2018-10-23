@@ -4,6 +4,29 @@
   
   &__title {
     font-size: $board-title;
+    margin: 10px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    input {
+      display: block;
+      width: 100%;
+      border: 1px solid transparent;
+      outline: none;
+      padding: 5px 10px;
+      font-size: inherit;
+
+      &:focus {
+        border-color: $light-green
+      }
+    }
+  }
+  &__title-name {
+
+  }
+  &__title-users {
+
   }
   &__body {
     position: relative;

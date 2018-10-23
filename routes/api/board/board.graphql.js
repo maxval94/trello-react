@@ -5,7 +5,6 @@ const schema = gql`
     id: ID!
     name: String!
     users: [User]!
-    usersName: [String]!
     lists: [List]!
   }
 
@@ -13,11 +12,18 @@ const schema = gql`
     id: ID!
     name: String
     lists: [String]
+    users: [String]
+    invitedUsers: [String]
   }
 
   input AddList {
     id: ID!
     title: String!
+  }
+
+  input AddUser {
+    id: ID!
+    email: String!
   }
 `;
 

@@ -1,0 +1,58 @@
+// Users Lists
+.users__lists {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+
+  &-item {
+    margin: 0 10px;
+  }
+  &-new {
+    position: relative;
+    z-index: 100;
+  }
+  &-new__action {
+    cursor: pointer;
+    font-size: 14px;
+    background: $light-blue;
+    padding: 9px 14px;
+    color: #fff;
+  }
+  &-new__user {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 220px;
+    background-color: $light-blue;
+    color: #fff;
+    font-size: 14px;
+    padding: 10px;
+
+    p {
+      margin-bottom: 10px;
+    }
+    input {
+      font-size: 12px;
+      background-color: $light-blue;
+      border: 1px solid #fff;
+      color: #fff;
+      margin-bottom: 10px;
+      
+      &:focus {
+        border-color: #fff;
+      }
+      &::placeholder {
+        color: #fff;
+      }
+    }
+  }
+  &-new__user--error input {
+    color: $light-red !important;
+    border-color: $light-red !important;
+    
+    &::placeholder {
+      color: $light-red !important;
+    }
+  }
+}

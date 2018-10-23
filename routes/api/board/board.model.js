@@ -13,6 +13,13 @@ const schema = {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user"
     }
+  ],
+  invitedUsers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      token: String
+    }
   ]
 };
 const boardSchema = new mongoose.Schema(schema, { timestamps: true });

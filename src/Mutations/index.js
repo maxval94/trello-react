@@ -24,6 +24,13 @@ const updateBoard = gql`
     }
   }
 `;
+const addUser = gql`
+  mutation addUser($input: AddUser!) {
+    addUser(input: $input) {
+      name
+    }
+  }
+`;
 
 const addList = gql`
   mutation addList($input: AddList!) {
@@ -88,6 +95,7 @@ export {
   createUser,
   loginUser,
   updateBoard,
+  addUser,
   addList,
   updateList,
   deleteList,

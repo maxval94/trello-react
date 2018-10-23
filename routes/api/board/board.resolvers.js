@@ -1,9 +1,10 @@
+const crypto = require("crypto");
 const Board = require("./board.model").Board;
 const User = require("../user/user.model").User;
 const Dashboard = require("../dashboard/dashboard.model").Dashboard;
 const Card = require("../card/card.model").Card;
 const List = require("../list/list.model").List;
-
+const Mail = require("../modules/mail");
 const getBoard = async (_, { id }) => {
   return await Board.findById(id);
 };
@@ -29,6 +30,67 @@ const updateBoard = (_, { input }) => {
       }
     );
   });
+};
+
+const addUser = async (_, { input }, { user: fromUser }) => {
+  const { id, email } = input;
+  const toUser = await User.findOne({ email });
+  // const options = {
+  //   rawResult: true,
+  //   new: true
+  // };
+  const token = crypto
+    .createHmac("sha256", "secret")
+    .update("I love Dashboard")
+    .digest("hex");
+
+  // const newData = {
+  //   invitedUsers: [
+  //     {
+  //       userId: user._id,
+  //       token
+  //     }
+  //   ]
+  // };
+
+  // const board = await Board.findOneAndUpdate(
+  //   { _id: id },
+  //   newData,
+  //   options,
+  //   (err, board) => {
+  //     if (err) {
+  //       reject(err);
+  //     } else {
+  //       resolve(board.value);
+  //     }
+  //   }
+  // );
+
+  console.log("user.id", toUser._id);
+  const name = toUser.email;
+  const message = `token ${token}`;
+  const content = `name: ${name} \n token: ${token} \n message: ${message} `;
+
+  const mail = {
+    from: fromUser.email,
+    to: toUser.email, //Change to email address that you want to receive messages on
+    subject: "New Message from Contact Form",
+    text: content
+  };
+
+  await Mail.sendMail(mail, (err, data) => {
+    if (err) {
+      console.log("err", err);
+    } else {
+      console.log("Success", data);
+    }
+  });
+
+  console.log("board", board);
+
+  return {
+    name: "Message will be send"
+  };
 };
 
 const addList = (_, { input }) => {
@@ -70,7 +132,7 @@ const addList = (_, { input }) => {
   });
 };
 
-const userResolvers = {
+const boardResolvers = {
   Query: {
     getBoard
   },
@@ -93,8 +155,9 @@ const userResolvers = {
   },
   Mutation: {
     updateBoard,
-    addList
+    addList,
+    addUser
   }
 };
 
-module.exports = userResolvers;
+module.exports = boardResolvers;

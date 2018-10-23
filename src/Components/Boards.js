@@ -1,14 +1,21 @@
 import React, { Component } from "react";
+import { debounce } from "lodash";
 import { removeAt, insert } from "timm";
-import { Mutation } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Column from "./Column";
 import { updateList, updateBoard } from "../Mutations";
 import NewColumn from "./NewColumn";
+import { getBoard } from "../Query";
+import UsersLists from "./UsersLists";
 
 const getIds = data => {
   return data.map(({ id }) => id);
 };
+
+const debounceFetch = debounce((fetch, data) => {
+  fetch(data);
+}, 2000);
 
 class Boards extends Component {
   static defaultProps = {
@@ -22,6 +29,42 @@ class Boards extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState(nextProps);
   }
+
+  handleTitleChange = (value, fetch) => {
+    const { boardId } = this.props;
+
+    this.setState({
+      title: value
+    });
+
+    debounceFetch(fetch, {
+      variables: {
+        input: {
+          id: boardId,
+          name: value
+        }
+      },
+      update: cache => {
+        const query = {
+          query: getBoard,
+          variables: {
+            id: boardId
+          }
+        };
+        const board = cache.readQuery(query).getBoard;
+
+        cache.writeQuery({
+          ...query,
+          data: {
+            getBoard: {
+              ...board,
+              name: value
+            }
+          }
+        });
+      }
+    });
+  };
 
   handleUpdate = newList => {
     const { lists } = this.state;
@@ -177,13 +220,47 @@ class Boards extends Component {
     });
   };
 
+  renderBoard() {
+    return (
+      <div className="board__title">
+        <div className="board__title-name">
+          <Mutation mutation={updateBoard}>
+            {fetch => (
+              <input
+                type="text"
+                placeholder="Board Title"
+                value={this.state.title}
+                onChange={e => {
+                  this.handleTitleChange(e.target.value, fetch);
+                }}
+              />
+            )}
+          </Mutation>
+        </div>
+        <div className="board__title-users">
+          <UsersLists boardId={this.props.boardId} />
+        </div>
+      </div>
+    );
+  }
+
+  renderUsers({ users }) {
+    return users.map((user, index) => {
+      return (
+        <div className="board__title-user" key={index}>
+          {user.email}
+        </div>
+      );
+    });
+  }
+
   render() {
-    const { title, boardId } = this.props;
+    const { boardId } = this.props;
     const { lists } = this.state;
 
     return (
       <div className="board">
-        <h2 className="board__title">{title}</h2>
+        {this.renderBoard()}
         <div className="board__body">
           <Mutation mutation={updateBoard}>
             {fetchBoard => (

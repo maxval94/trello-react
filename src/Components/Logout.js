@@ -18,6 +18,7 @@ class Logout extends Component {
       <ApolloConsumer>
         {client => (
           <button
+            className="btn-solid"
             onClick={() => {
               this.handleLogout(client);
             }}

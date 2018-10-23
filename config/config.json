@@ -28,5 +28,10 @@
   },
   "apolloClient": {
     "uri": "http://localhost:3000/graphql"
+  },
+  "mail": {
+    "host": "smtp.gmail.com",
+    "email": "",
+    "password": ""
   }
 }

@@ -13,10 +13,6 @@ class DeleteColumn extends Component {
     isOpen: false
   };
 
-  handleRef = node => {
-    this.node = node;
-  };
-
   componentDidMount() {
     document.addEventListener("click", this.handleOutside);
   }
@@ -24,6 +20,10 @@ class DeleteColumn extends Component {
   componentWillUnmount() {
     document.removeEventListener("click", this.handleOutside);
   }
+
+  handleRef = node => {
+    this.node = node;
+  };
 
   handleOutside = e => {
     const isOutside = e.target.closest(`.${this.node.className}`);

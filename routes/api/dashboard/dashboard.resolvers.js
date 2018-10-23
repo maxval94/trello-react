@@ -1,19 +1,36 @@
-const merge = require("lodash.merge");
 const Dashboard = require("./dashboard.model").Dashboard;
 
-// const getBoard = async (_, { id }) => {
-//   return await Dashboard.findById(id);
-// };
-
-const updateDashboard = (_, { input }, { dashboard }) => {
-  merge(dashboard, input);
-  return dashboard.save();
+const getDashboard = async (_, { id }) => {
+  return await Dashboard.findById(id);
 };
 
-const userResolvers = {
-  // Query: {
-  //   getBoard
-  // },
+const updateDashboard = (_, { input }) => {
+  const { id, ...newData } = input;
+  const options = {
+    rawResult: true,
+    new: true
+  };
+
+  return new Promise((resolve, reject) => {
+    return Dashboard.findOneAndUpdate(
+      { _id: id },
+      newData,
+      options,
+      (err, dashboard) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(dashboard.value);
+        }
+      }
+    );
+  });
+};
+
+const dashboardResolvers = {
+  Query: {
+    getDashboard
+  },
   // Board: {
   //   users: async board => {
   //     const userData = await Dashboard.findById(board._id)
@@ -33,4 +50,4 @@ const userResolvers = {
   }
 };
 
-module.exports = userResolvers;
+module.exports = dashboardResolvers;

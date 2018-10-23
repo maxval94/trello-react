@@ -1,0 +1,14 @@
+// Buttons
+.btn-solid {
+  cursor: pointer;
+  color: #fff;
+  background-color: transparent;
+  border: 1px solid currentColor;
+  transition: 0.2s linear background-color, 0.2s linear border-color;
+
+  &:hover {
+    background-color: $light-green;
+    border-color: transparent;
+    transition: 0.2s linear background-color, 0.2s linear border-color;
+  }
+}

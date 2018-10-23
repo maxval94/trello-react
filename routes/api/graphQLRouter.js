@@ -14,6 +14,9 @@ const baseSchema = gql`
   }
 
   type Query {
+    # Dashboard
+    getDashboard(id: String!): Dashboard!
+
     # User
     getUser: User!
 
@@ -42,6 +45,7 @@ const baseSchema = gql`
     # Board
     updateBoard(input: UpdateBoard!): Board!
     addList(input: AddList): Board!
+    addUser(input: AddUser): Board!
 
     # Card
     updateCard(input: UpdateCard!): Card!

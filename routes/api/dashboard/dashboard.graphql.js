@@ -9,8 +9,8 @@ const schema = gql`
 
   input UpdateDashboard {
     id: ID!
-    # boards: [Board]!
-    # users: [User]!
+    boards: [String]!
+    users: [String]!
   }
 `;
 
